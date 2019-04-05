@@ -1,0 +1,75 @@
+.form-actions {
+    display: inline-block;
+    position: relative;
+}
+.form-actions .spinner {
+    float: none;
+    display: inline-block;
+}
+.loading .form-actions .spinner {
+    visibility: visible;
+}
+
+#deployment-meta, #deployment-meta * {
+    box-sizing: border-box;
+}
+#deployment-meta .code{
+    width: 100%;
+}
+
+.fd-versions-table tr.tpl {
+    display: none;
+}
+
+.fd-update-button.spin span {
+    -webkit-animation:spin 2s linear infinite;
+    -moz-animation:spin 2s linear infinite;
+    animation:spin 2s linear infinite;
+}
+.fd-update-button span {
+    line-height: 1;
+    margin-top: 3px;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+.fd-github-icon {
+    background: url("../images/github.png") center center no-repeat;
+    padding: 15px;
+    display: inline-block;
+    margin-right: 6px;
+    margin-left: 6px;
+}
+.fd-versions-table .actions {
+    width: 120px;
+    text-align: center;
+}
+.fd-versions-table .version-number {
+    width: 80px;
+}
+.fd-versions-table .current-version {
+    width: 30px;
+    text-align: center;
+}
+
+.fd-versions-table .current-version a {
+    color: #c5c5c5;
+}
+
+.fd-versions-table .current .current-version a,
+.fd-versions-table .current-version.current a {
+    color: #569729;
+}
+
+.wp-list-table #version_number{
+    width: 120px;
+}
+
+.full-width-input {
+    width: 100%;
+}
+.block-input {
+    display: block;
+}

@@ -1,0 +1,11 @@
+body {
+    background: #ffffff;
+}
+
+/*<if_is_premium>*/
+
+.pro_class {
+    color: #0000cc;
+}
+
+/*</if_is_premium>*/
