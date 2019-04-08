@@ -189,10 +189,10 @@ class FD_String_Finder {
 	function get_if_string( $start_pos, &$found_if = false ) {
 		$condition_true = true;
 
-		// Kiểm tra về bên trái chuỗi
+		// Kiểm tra về bên trái chuỗi.
 		$found_if = $this->find_back( $start_pos, 'if', $this->content );
 
-		// Nếu tìm thấy từ if
+		// Nếu tìm thấy từ if.
 		if ( $found_if !== false ) {
 			// kiểm tra xem nó là khẳng định hay phủ định  = cách tìm dấu "!"
 			$find = $this->find_bracket( $found_if, $this->if_open_bracket, $this->if_end_bracket );
@@ -207,7 +207,7 @@ class FD_String_Finder {
 					// Nếu có dấu chấm !
 					if ( $n ) {
 
-						// Nếu điều kiện có chư'a từ khóa "true" ví dụ: if ( ft_is__premium( ) != true ) {}
+						// Nếu điều kiện có chư'a từ khóa "true" ví dụ: if ( ft_is__premium( ) != true ) {}.
 						if ( false !== strpos( $string_if, 'true' ) ) {
 							// Nếu có 2 dấu chấm ! sẽ là phủ định
 							if ( $n % 2 == 0 ) {
@@ -328,7 +328,7 @@ class FD_String_Finder {
 		if ( $pos >= 0 ) {
 
 			while ( $found === false && $i < $length && $continue ) {
-				// Bỏ qua dấu xuống dòng và dấu cách
+				// Bỏ qua dấu xuống dòng và dấu cách.
 				if ( ! $this->is_space( $string[ $i ] ) ) {
 					if ( $string[ $i ] == $text[0] ) {
 						$c = true;
@@ -348,12 +348,12 @@ class FD_String_Finder {
 
 				}
 				$i++;
-			} // end white
+			} // end white.
 		} else {
 
 			$i --;
 			while ( $found === false && $i > 0 && $continue ) {
-				// Bỏ qua dấu xuống dòng và dấu cách
+				// Bỏ qua dấu xuống dòng và dấu cách.
 				if ( ! $this->is_space( $string[ $i ] ) ) {
 					if ( $string[ $i ] == $text[ $text_l - 1 ] ) {
 						$c = true;
@@ -373,7 +373,7 @@ class FD_String_Finder {
 
 				}
 				$i--;
-			} // end white
+			} // end white.
 		}
 
 		return $found;
@@ -417,7 +417,7 @@ class FD_String_Finder {
 
 		if ( $index !== false ) {
 
-			// Kiểm ra xem câu lệnh này là khẳng định hey phủ định: if ( ft_is__premium( ) == true ) {} or if ( ! ft_is__premium( ) ) {}
+			// Kiểm ra xem câu lệnh này là khẳng định hay phủ định: if ( ft_is__premium( ) == true ) {} or if ( ! ft_is__premium( ) ) {}.
 			$condition = $this->get_if_string( $index, $found_if );
 			$check = $this->find_bracket( $index, $this->open, $this->close );
 

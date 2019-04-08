@@ -75,7 +75,7 @@ class FD_Deploy {
 	 *
 	 * Kiểm tra file xem có thực hiện cắt nội dung hay không ?
 	 *
-	 * Chỉ chấp nhận file: .php, .js, .css, .sass, .scss, .less .txt, .readme
+	 * Chỉ chấp nhận files: .php, .js, .css, .sass, .scss, .less .txt, .readme
 	 *
 	 * @param $file
 	 */
@@ -104,8 +104,8 @@ class FD_Deploy {
 	}
 
 	function is_php_file( $file ) {
-		 $ext = $this->get_ext( $file );
-		 return strtolower( $ext ) == 'php';
+		$ext = $this->get_ext( $file );
+		return strtolower( $ext ) == 'php';
 	}
 
 	function replace_text( $content ) {
@@ -169,7 +169,7 @@ class FD_Deploy {
 			return false;
 		}
 
-		// Bor qua tất cả các thư mục có tên bắt đầu = dấu "."
+		// bỏ qua tất cả các thư mục có tên bắt đầu = dấu ".".
 		if ( strpos( $dir, '.' ) === 0 ) {
 			return true;
 		}
