@@ -24,7 +24,7 @@ class FD_String_Finder {
 
 	public $version = 'free'; // free or premium
 
-	public $key = 'ft_is__premium'; // function function_premium
+	public $key = 'ft_is__premium'; // function function_premium.
 	public $open = '{'; // or ":"
 	public $close = '}'; // or "endif";
 
@@ -60,11 +60,11 @@ class FD_String_Finder {
 		$open_tag = $this->find_next_text( $start_pos, '/*', $this->content );
 		if ( $open_tag !== false ) {
 			$s = substr( $this->content, $open_tag );
-			$start_pos = $open_tag; // + thêm 1 vì chuỗi này là 1 vị trí đầu tiên đã là "/"
+			$start_pos = $open_tag; // + thêm 1 vì chuỗi này là 1 vị trí đầu tiên đã là "/".
 			$close_tag = strpos( $s, '*/' );
 
 			if ( $close_tag !== false ) {
-				$start_pos += ( $close_tag + 1 ); // close tag + thêm 1 vì nó bắt đầu từ 0
+				$start_pos += ( $close_tag + 1 ); // close tag + thêm 1 vì nó bắt đầu từ 0.
 			}
 		}
 
@@ -74,11 +74,11 @@ class FD_String_Finder {
 	function skip_comment_inline( $start_pos ) {
 		$found = $this->find_next_text( $start_pos, '//', $this->content );
 		$found_new_line = false;
-		// Nếu tìm kiếm thấy dấu comment inline "//" thì bỏ qua dòng này ko xét đến các ký tự sau nó cho đến khi xuống dòng mới
+		// Nếu tìm kiếm thấy dấu comment inline "//" thì bỏ qua dòng này ko xét đến các ký tự sau nó cho đến khi xuống dòng mới.
 		if ( $found !== false ) {
 			$i = $found;
 			while ( $found_new_line === false && $i < $this->length ) {
-				// Nếu tìm thấy dấu xuống dòng thì trả về vị trí của dòng mới
+				// Nếu tìm thấy dấu xuống dòng thì trả về vị trí của dòng mới.
 				if ( $this->_is_new_line( $this->content[ $i ] ) ) {
 					$found_new_line = $i;
 				}

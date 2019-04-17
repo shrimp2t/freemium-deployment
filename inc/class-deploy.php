@@ -9,6 +9,7 @@ class FD_Deploy {
 	public $type = ''; // theme or plugin
 	public $version = ''; // version of item
 	public $item_name = ''; // version of item
+	public $item_premium_name = ''; // version of item
 	public $premium_suffix = 'premium';
 	public $replace = '';
 	public $replace_pro = '';
@@ -199,7 +200,7 @@ class FD_Deploy {
 	}
 
 	function skip_config_file( $file ) {
-		// Skip all dot file and config file file
+		// Skip all dot file and config file.
 		if ( strpos( $file, '.' ) === 0 ) {
 			return true;
 		}
@@ -257,7 +258,7 @@ class FD_Deploy {
 		foreach ( $files as $file ) {
 			$full_path = trailingslashit( $this->source_dir . $source_dir ) . $file;
 			if ( is_file( $full_path ) ) {
-				// do something width file here
+				// do something width file here.
 				if ( ! $this->skip_config_file( $file ) ) {
 					$premium_file = trailingslashit( $this->premium_dir . $source_dir ) . $file;
 					if ( ! copy( $full_path, $premium_file ) ) {
@@ -293,6 +294,7 @@ class FD_Deploy {
 				array(
 					'type' => '',
 					'name' => '',
+					'premium_name' => '',
 					'function_premium' => '',
 					'premium_suffix' => '',
 					'replace' => '',
@@ -310,6 +312,9 @@ class FD_Deploy {
 
 				if ( isset( $this->config['name'] ) && $this->config['name'] ) {
 					$this->item_name = $this->config['name'];
+				}
+				if ( isset( $this->config['premium_name'] ) && $this->config['premium_name'] ) {
+					$this->item_premium_name = $this->config['premium_name'];
 				}
 
 				if ( isset( $this->config['premium_suffix'] ) && $this->config['premium_suffix'] ) {
@@ -352,9 +357,9 @@ class FD_Deploy {
 
 	function get_version( $files ) {
 
-		// if is theme
+		// if is theme.
 		if ( 'plugin' != $this->type ) {
-			// get version from style
+			// get version from style.
 			$style_file = $this->source_dir . 'style.css';
 
 			$default_headers = array(
@@ -498,13 +503,13 @@ class FD_Deploy {
 				$this->finder->set_mod( 'free' );
 				$this->render_free( '/', $files );
 
-				// Get changelog
+				// Get changelog.
 				$changelog = null;
 				if ( $get_changelog ) {
 					$changelog = $this->get_changelog( $free_dir );
 				}
 
-				// Zip free
+				// Zip free.
 				$old_free_zip = $base_dir . '/' . $item_name . '.zip';
 				$r = fd_zip_folder( $free_dir, $old_free_zip );
 				if ( $this->version ) {
@@ -516,7 +521,7 @@ class FD_Deploy {
 					@rename( $old_free_zip, $free_zip );
 				}
 
-				// Remove temp folders
+				// Remove temp folders.
 				$this->delete_dir( dirname( $free_dir ) );
 				$this->delete_dir( $_source_dir );
 				$relative_path = str_replace( $upload_dir, '', $free_zip );
@@ -597,25 +602,35 @@ class FD_Deploy {
 				$this->finder->set_mod( 'premium' );
 				$this->render_premium( '/', $files );
 
-				// Get changelog
+				// Get changelog.
 				$changelog = null;
 				if ( $get_changelog ) {
 					$changelog = $this->get_changelog( $premium_dir );
 				}
 
-				// add zip file
-				// Zip premium folder
-				$old_premium_zip  = $premium_zip = $base_dir . '/' . $item_name . '-' . $this->premium_suffix . '.zip';
+				// add zip file.
+				// Zip premium folder.
+				if ( $this->item_premium_name ) {
+					$old_premium_zip  = $premium_zip = $base_dir . '/' . $this->item_premium_name . '.zip';
+				} else {
+					$old_premium_zip  = $premium_zip = $base_dir . '/' . $item_name . '-' . $this->premium_suffix . '.zip';
+				}
 
 				$r = fd_zip_folder( $premium_dir, $old_premium_zip );
 				if ( $r ) {
 					if ( $this->version ) {
-						$premium_zip = $base_dir . '/' . $item_name . '-' . $this->premium_suffix . '-v' . trim( $this->version ) . '.zip';
+						if ( $this->item_premium_name ) {
+							$premium_zip = $base_dir . '/' . $this->item_premium_name . '-v' . trim( $this->version ) . '.zip';
+
+						} else {
+							$premium_zip = $base_dir . '/' . $item_name . '-' . $this->premium_suffix . '-v' . trim( $this->version ) . '.zip';
+						}
+
 						@rename( $old_premium_zip, $premium_zip );
 					}
 				}
 
-				// Remove temp folders
+				// Remove temp folders.
 				$this->delete_dir( dirname( $premium_dir ) );
 				$this->delete_dir( $_source_dir );
 

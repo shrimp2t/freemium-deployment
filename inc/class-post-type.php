@@ -413,8 +413,7 @@ class FD_Post_Type {
 		</div>
 		<?php } ?>
 
-		<?php if ( get_option( 'fd_github_token' ) ) {
-
+		<?php
 			$download_id = get_post_meta( $post->ID, '_edd_download_id', true );
 			$file_id = get_post_meta( $post->ID, '_edd_download_file_id', true );
 
@@ -433,7 +432,7 @@ class FD_Post_Type {
 				)
 			);
 
-			?>
+		?>
 			<div class="github-webhook">
 
 				<p>
@@ -469,12 +468,7 @@ class FD_Post_Type {
 					<span class="howto">If you fetch download from a git repo use 0 else chose other number you want.</span>
 					<input type="text" class="block-input" name="_edd_download_free_file_id" value="<?php echo esc_attr( $file_free_id ); ?>"/>
 				</p>
-
-
 			</div>
-		<?php } ?>
-
-
 		<?php
 	}
 
