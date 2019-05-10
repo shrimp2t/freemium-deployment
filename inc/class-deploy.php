@@ -587,9 +587,14 @@ class FD_Deploy {
 				$this->set_source_dir( $source_dir );
 				$this->config();
 				$item_name = $this->item_name ? $this->item_name : $nice_name;
+				if ( $this->item_premium_name ) {
+					$premium_dir = $base_dir . '/_premium_' . $id . '/' . $this->item_premium_name;
+				} else {
+					$premium_dir = $base_dir . '/_premium_' . $id . '/' . $item_name . '-' . $this->premium_suffix;
+				}
 
-				$premium_dir = $base_dir . '/_premium_' . $id . '/' . $item_name . '-' . $this->premium_suffix;
 				wp_mkdir_p( $premium_dir );
+
 				$this->set_premium_dir( $premium_dir );
 
 				$files = $this->get_files( $this->source_dir );
