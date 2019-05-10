@@ -28,6 +28,11 @@ class FD_Post_Type {
 		$post_id = $_REQUEST['post_id'];
 
 		$new_versions = array();
+		$default = array(
+			'version' => '',
+			'free_name' => '',
+			'premium_name' => '',
+		);
 		foreach ( $versions as $key => $version ) {
 			$version = wp_parse_args( $version, $default );
 			// Remove empty version
@@ -58,6 +63,10 @@ class FD_Post_Type {
 		if ( ! is_array( $versions ) ) {
 			$versions = array();
 		}
+
+		$default = array(
+			'version' => '',
+		);
 
 		foreach ( $versions as $key => $version ) {
 			$version = wp_parse_args( $version, $default );

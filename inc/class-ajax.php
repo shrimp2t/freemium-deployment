@@ -26,18 +26,18 @@ class FD_Ajax {
 		switch ( $doing ) {
 			case 'fetch':
 				$post_id = isset( $_REQUEST['post_id'] ) ? absint( $_REQUEST['post_id'] ) : false;
-					$repo = isset( $_REQUEST['repo'] ) ? $_REQUEST['repo'] : false;
-					$version  = isset( $_REQUEST['version'] ) ? $_REQUEST['version'] : false;
+				$repo = isset( $_REQUEST['repo'] ) ? $_REQUEST['repo'] : false;
+				$version  = isset( $_REQUEST['version'] ) ? $_REQUEST['version'] : false;
 
-					update_post_meta( $post_id, '_fd_github_version', $version );
-					update_post_meta( $post_id, '_fd_github_repo', $repo );
+				update_post_meta( $post_id, '_fd_github_version', $version );
+				update_post_meta( $post_id, '_fd_github_repo', $repo );
 
-					$path = $this->download_github( $repo, $version, $github );
+				$path = $this->download_github( $repo, $version, $github );
 				if ( $path ) {
 					wp_send_json_success( $path );
 				}
 
-					wp_send_json_success();
+				wp_send_json_success();
 				break;
 			case 'get_tags':
 				$repo = isset( $_REQUEST['repo'] ) ? $_REQUEST['repo'] : false;
@@ -51,7 +51,7 @@ class FD_Ajax {
 				wp_send_json_success( $options );
 
 				break;
-			default: // get repos
+			default: // get repos.
 				$options = '<option value="">' . esc_html__( 'Select a repository', 'textdomain' ) . '</option>';
 				$repos = $github->get_repos();
 				foreach ( $repos as $name => $full_name ) {

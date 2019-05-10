@@ -144,6 +144,7 @@ jQuery( document ).ready( function( $ ) {
 
         },
         success: function (res) {
+			console.log( 'Github loaded', res );
             $( 'select.github_repo').html(res.data);
             $( 'select.github_repo').trigger( 'option_added' );
         }
@@ -212,8 +213,7 @@ jQuery( document ).ready( function( $ ) {
 
                 },
                 success: function ( res ) {
-                    console.log( 'save_versions', res );
-                    console.log( 'success' );
+                	console.log( 'save_versions success', res );
                 }
             });
         };
@@ -221,7 +221,8 @@ jQuery( document ).ready( function( $ ) {
         metabox.fdDeploy.ajaxDeploy = function( type, data, rowKey ){
             type = type || 'free';
             var row = metabox.fdDeploy.versionTable.find( 'tbody tr[row-id="'+rowKey+'"]');
-            $( '.fd-update-button', row ).addClass( 'spin' );
+			$( '.fd-update-button', row ).addClass( 'spin' );
+			console.log( 'ajaxDeploy data ' + type + ': ', data );
             $.ajax({
                 type: 'POST',
                 data: {
@@ -239,6 +240,7 @@ jQuery( document ).ready( function( $ ) {
 
                 },
                 success: function ( res ) {
+					console.log( 'ajaxDeploy respond', res );
                     if ( res.success ) {
                         metabox.fdDeploy.updateRowData( rowKey, res.data );
                         if ( type != 'premium') {
@@ -320,6 +322,7 @@ jQuery( document ).ready( function( $ ) {
          };
 
         metabox.fdDeploy.addRowToTable = function( data, key, save ){
+			console.log( 'Add row to table: ', data );
             var tplR = metabox.fdDeploy.versionTable.find( 'tbody tr.tpl').eq( 0 );
             var row_c = tplR.clone();
             row_c.removeClass( 'tpl' );
@@ -379,7 +382,8 @@ jQuery( document ).ready( function( $ ) {
             } );
 
             repoSelect.on( 'option_added', function(){
-                var current = repoSelect.attr( 'data-value' ) || '';
+				var current = repoSelect.attr( 'data-value' ) || '';
+				console.log( 'Github option_added', current );
                 if ( current ) {
                     $( 'option[value="'+current+'"]').attr( 'selected', 'selected' );
                     repoSelect.trigger( 'change' );
@@ -425,7 +429,7 @@ jQuery( document ).ready( function( $ ) {
                             button.removeClass( 'updating-message' );
                         },
                         success: function (res) {
-                            //versionSelect.html(res.data);
+							console.log( 'fd_ajax_github ' + repoName + ': ', res );
                             metabox.fdDeploy.ajaxDeploy( 'free', metabox.fdDeploy.versions[ key ] || {}, key );
                         }
                     });
