@@ -4,6 +4,11 @@ class FD_Deploy {
 	public $free_dir = '';
 	public $premium_dir = '';
 	public $source_dir = '';
+	/**
+	 * Filter object
+	 *
+	 * @var FD_String_Finder
+	 */
 	public $finder;
 	public $config = array();
 	public $type = ''; // theme or plugin
@@ -132,11 +137,14 @@ class FD_Deploy {
 						$content = str_replace( $this->config['replace'], $this->config['replace_pro'], $content );
 					}
 				}
+
+				$content = $this->finder->deploy_none_php( $content );
+
 				if ( $this->is_php_file( $full_file_path ) ) {
 					$content = $this->finder->deploy_php( $content );
 					// var_dump( $content );
 				} else {
-					$content = $this->finder->deploy_none_php( $content );
+					// $content = $this->finder->deploy_none_php( $content );
 				}
 
 				// Fix WARNING: Both DOS and UNIX style line endings were found.

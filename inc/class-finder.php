@@ -492,27 +492,12 @@ class FD_String_Finder {
 		return $this->remove_new_lines( $content );
 	}
 
-	function deploy_none_php( $content ) {
-
-		$open_tag = '/*<if_is_premium>*/';
-		$close_tag = '/*</if_is_premium>*/';
+	function deploy_none_by_tag( $content, $open_tag = '/*<if_is_premium>*/', $close_tag = '/*</if_is_premium>*/' ) {
 		$open_l = strlen( $open_tag );
 		$close_l = strlen( $close_tag );
 
 		if ( $this->version == 'free' ) {
 			$this->set( $content );
-			/*
-			$open_pos = strpos($this->content, $open_tag);
-			if ($open_pos !== false) {
-				$s = substr($this->content, $open_pos);
-				$close_pos = strpos($s, $close_tag);
-				if ($close_pos !== false) {
-					$close_pos += $close_l;
-					$content = substr_replace( $this->content, '', $open_pos, $close_pos);
-				}
-				$content = $this->deploy_none_php( $content );
-			}
-			*/
 			$open_pos = strpos( $this->content, $open_tag );
 			while ( $open_pos !== false ) {
 				$s = substr( $this->content, $open_pos );
@@ -531,6 +516,16 @@ class FD_String_Finder {
 		}
 
 		return $this->remove_new_lines( $content );
+	}
+
+	function deploy_none_php( $content ) {
+
+		// Deploy buy using comment tag in JS, SCSS, CSS code, PHP.
+		$content = $this->deploy_none_by_tag( $content, '/*<if_is_premium>*/', '/*</if_is_premium>*/' );
+		// Deploy by using HTML tag.
+		$content = $this->deploy_none_by_tag( $content, '<!-- if_is_premium -->', '<!-- /if_is_premium -->' );
+
+		return $content;
 	}
 
 
